@@ -41,6 +41,9 @@ source = "https://yokatlas.yok.gov.tr/lisans-bolum.php?b=10024"
 
 # To be used in the loop as a variable to keep URL for each university
 university_url_list = []
+
+university_list = []  # to keep list of universities
+
 quota_found = 0
 
 def simple_get(url):
@@ -111,6 +114,24 @@ if __name__ == '__main__':
 
     url_as_string = ''.join(university_url_list[0])
 
+    # Let's get University's City information in their homepage
+    # Example URL: https://yokatlas.yok.gov.tr/2017/lisans.php?y=106510077
+    university_profile_url = website_homepage + "2017/lisans.php?y=" + url_as_string
+    #print(university_profile_url)
+
+    profile_page_html = simple_get(university_profile_url)
+    profile_page_parsed = BeautifulSoup(profile_page_html, 'html.parser')
+    try:
+        # <div class="panel" style="margin:0px;background-color:#646464;">
+        for div in profile_page_parsed.findAll('div', {"style": "margin:0px;background-color:#646464;"}):
+            name_and_city = div.h3.get_text() # example: ABDULLAH GÜL ÜNİVERSİTESİ (KAYSERİ)
+            city = re.search(r'\((.*?)\)', name_and_city).group(1) # KAYSERİ
+            #print(city)
+    except:
+        print("Fetching error")
+
+
+
     # From this point on, let's try to fetch one university's quota's.
     quota_request_url = website_homepage + "2017/content/lisans-dynamic/1000_2.php?y=" + url_as_string
     #print(quota_request_url)
@@ -122,9 +143,16 @@ if __name__ == '__main__':
     try:
         for td in quota_page_parsed.findAll('td', {"class": "tdr text-center"}):
             quota = td.get_text()
-
         #print(quota)
-
     except:
         print("Fetching error")
+
+
+
+
+class University:
+    def __init__(self):
+        city = ""
+        quota = 0  # "kontenjan"
+        region = ""  # Region in Turkey
 
