@@ -31,8 +31,9 @@ website_homepage = "https://yokatlas.yok.gov.tr/"
 source = "https://yokatlas.yok.gov.tr/lisans-bolum.php?b=10024"
 
 # To be used in the loop as a variable to keep URL for each university
-university_profile_page = ""
 university_url_list = []
+quota_found = 0
+
 def simple_get(url):
     """
     Attempts to get the content at `url` by making an HTTP GET request.
@@ -91,10 +92,30 @@ if __name__ == '__main__':
 
     # remove the (unnecessary) last element
     university_url_list.remove('netler-tablo.php?b=10024')
+    #print(university_url_list)
 
-    print(university_url_list)
     # Each item is in the form: lisans.php?y=<id> For example lisans.php?y=106510077
     # We need to extract only the ID part
     for i in range(len(university_url_list)):
         url = re.findall(r'\d+', university_url_list[i])
         university_url_list[i] = url
+
+    url_as_string = ''.join(university_url_list[0])
+
+    # From this point on, let's try to fetch one university's quota's.
+    quota_request_url = website_homepage + "2017/content/lisans-dynamic/1000_2.php?y=" + url_as_string
+    #print(quota_request_url)
+
+    quota_page_html = simple_get(quota_request_url)
+    quota_page_parsed = BeautifulSoup(quota_page_html, 'html.parser')
+    #print(BeautifulSoup.prettify(quota_page_parsed))
+
+    try:
+        for td in quota_page_parsed.findAll('td', {"class": "tdr text-center"}):
+            quota = td.get_text()
+
+        #print(quota)
+
+    except:
+        print("Fetching error")
+
