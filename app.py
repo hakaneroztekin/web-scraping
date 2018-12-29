@@ -154,5 +154,4 @@ class University:
     def __init__(self):
         city = ""
         quota = 0  # "kontenjan"
-        region = ""  # Region in Turkey
-
+        region = ""  # region in Turkey
