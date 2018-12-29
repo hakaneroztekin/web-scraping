@@ -21,9 +21,18 @@ from requests.exceptions import RequestException
 from contextlib import closing
 from bs4 import BeautifulSoup
 
+import json
+import re
+
+# Website to be scraped
+website_homepage = "https://yokatlas.yok.gov.tr/"
+
 # List of all the universities in Turkey that has Computer Engineering undergraduate program
 source = "https://yokatlas.yok.gov.tr/lisans-bolum.php?b=10024"
 
+# To be used in the loop as a variable to keep URL for each university
+university_profile_page = ""
+university_url_list = []
 def simple_get(url):
     """
     Attempts to get the content at `url` by making an HTTP GET request.
@@ -71,9 +80,15 @@ if __name__ == '__main__':
     # For that, we will use BeautifulSoup.
     html = BeautifulSoup(raw_html, 'html.parser')
 
+    # Here we can list URL's of each university's own page
+    # When we will be able to fetch one university's quotas, this will be used to fetch all universities' quotas.
     try:
         for h4 in html.select('h4'):
-            print(h4.a['href'])  # might be improved to select among h4 titles, to exclude the last one
+            # print(h4.a['href'])
+            university_url_list.append(h4.a['href'])
     except:
         print("Fetching error")
 
+    # remove the (unnecessary) last element
+    university_url_list.remove('netler-tablo.php?b=10024')
+  
