@@ -8,10 +8,19 @@
 #    Find r square for this relation.
 #
 # Implementation Steps:
-# 1- Scrap the data from the source.
+# + 1- Scrap the data from the source.
 # 2- Improve the data scraping
+# > +Get clear URL's for each university
+# > +Get Quota for Specific University
+# > Get University's City
+# > Get Quota & City for All Universities'
+#
 # 3- Use boxplot
+#
 # 4- Use scatterplot
+# > Relate Universitys' City with Region
+# > Use scatterplot
+#
 # 5- Wrap-up & Upload the project
 #
 
