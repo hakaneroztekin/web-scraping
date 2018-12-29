@@ -149,21 +149,19 @@ if __name__ == '__main__':
             profile_page_parsed = BeautifulSoup(profile_page_html, 'html.parser')
 
             # Get Name and City Attributes
-            # try:
-            #     # <div class="panel" style="margin:0px;background-color:#646464;">
-            #     for div in profile_page_parsed.findAll('div', {"style": "margin:0px;background-color:#646464;"}):
-            #         name_and_city = div.h3.get_text()  # example: ABDULLAH GÜL ÜNİVERSİTESİ (KAYSERİ)
-            #
-            #         name = re.search(r'(.*?)\(', name_and_city).group(1)  #
-            #
-            #
-            #         city = re.search(r'\((.*?)\)', name_and_city).group(1)  # KAYSERİ
-            #         university.city = city
-            #         #print(city)
-            # except:
-            #     print("Fetching error (2)")
-            #
-            # print("Name & City Fetch is completed")
+            try:
+                # <div class="panel" style="margin:0px;background-color:#646464;">
+                for div in profile_page_parsed.findAll('div', {"style": "margin:0px;background-color:#646464;"}):
+                    name_and_city = div.h3.get_text()  # example: ABDULLAH GÜL ÜNİVERSİTESİ (KAYSERİ)
+                    name = re.search(r'(.*?)\(', name_and_city).group(1)  # ABDULLAH GÜL ÜNİVERSİTESİ
+                    city = re.search(r'\((.*?)\)', name_and_city).group(1)  # KAYSERİ
+                    university.name = name
+                    university.city = city
+                    #print(city)
+            except:
+                print("Fetching error (2)")
+
+            print("Name & City Fetch is completed")
 
 
             # Get Program Name
@@ -206,3 +204,15 @@ if __name__ == '__main__':
             #print(university.city, " ", university.quota)
 
         # Create Boxplot
+
+        # Create a figure instance
+        fig = plt.figure(1, figsize=(200, 100))
+
+        # Create an axes instance
+        ax = fig.add_subplot(111)
+
+        # Create the boxplot
+        bp = ax.boxplot(university_list)
+
+        # Save the figure
+        fig.savefig('fig1.png', bbox_inches='tight')
