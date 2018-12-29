@@ -370,3 +370,26 @@ if __name__ == '__main__':
 
 
     # Create Boxplot
+    print("Creating Boxplot...")
+
+    # Strip City Information from Universities in the Region Lists
+    initialize_quotas()
+
+
+    box_plot_data = [quotas_for_akdeniz,
+                     quotas_for_dogu_anadolu,
+                     quotas_for_ege,
+                     quotas_for_guneydogu_anadolu,
+                     quotas_for_ic_anadolu,
+                     quotas_for_marmara,
+                     quotas_for_karadeniz]
+
+    print("Boxplotting the data.")
+    try:
+        plt.boxplot(box_plot_data)
+        plt.show()
+        print("Data is plotted as boxplot, exiting")
+    except:
+        print("Boxplotting failed")
+    # Save the figure
+    # fig.savefig('fig1.png', bbox_inches='tight')
