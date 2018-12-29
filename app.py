@@ -50,6 +50,14 @@ university_url_list = []
 
 university_list = []  # to keep list of universities
 
+# Regions
+bolge_akdeniz_list = []
+bolge_dogu_anadolu_list = []
+bolge_ege_list = []
+bolge_guneydogu_anadolu_list = []
+bolge_ic_anadolu_list = []
+bolge_marmara_list = []
+bolge_karadeniz_list = []
 
 class University:
     def __init__(self):
@@ -97,6 +105,34 @@ def log_error(e):
     print(e)
 
 
+
+def initialize_regions():
+    bolge_akdeniz = "Adana, Antalya, Burdur, Hatay, Isparta,  Kahramanmaraş, Mersin, Osmaniye"
+    bolge_akdeniz_list = convert_to_list(bolge_akdeniz)
+
+    bolge_dogu_anadolu = "Ağrı, Ardahan, Bingöl, Bitlis, Elazığ, Erzincan, Erzurum, Hakkari, Iğdır, Kars, Malatya, Muş, Tunceli, Van"
+    bolge_dogu_anadolu_list = convert_to_list(bolge_dogu_anadolu)
+
+    bolge_ege = "Afyonkarahisar, Aydın, Denizli, İzmir, Kütahya, Manisa, Muğla, Uşak"
+    bolge_ege_list = convert_to_list(bolge_ege)
+
+    bolge_guneydogu_anadolu= "Adıyaman, Batman, Diyarbakır, Gaziantep, Mardin, Siirt, Şanlıurfa, Şırnak, Kilis"
+    bolge_guneydogu_anadolu_list = convert_to_list(bolge_guneydogu_anadolu)
+
+    bolge_ic_anadolu = "Aksaray, Ankara, Çankırı, Eskişehir, Karaman, Kayseri, Kırıkkale, Kırşehir, Konya, Nevşehir, Niğde, Sivas, Yozgat"
+    bolge_ic_anadolu_list = convert_to_list(bolge_ic_anadolu)
+
+    bolge_marmara = "Balıkesir, Bilecik, Bursa, Çanakkale, Edirne, İstanbul, Kırklareli, Kocaeli, Sakarya, Tekirdağ, Yalova"
+    bolge_marmara_list = convert_to_list(bolge_marmara)
+
+    bolge_karadeniz = "Amasya, Artvin, Bartın, Bayburt, Bolu, Çorum, Düzce, Giresun, Gümüşhane, Karabük, Kastamonu, Ordu, Rize, Samsun, Sinop, Tokat, Trabzon, Zonguldak"
+    bolge_karadeniz_list = convert_to_list(bolge_karadeniz)
+
+def convert_to_list(string):
+    result = [x.strip() for x in string.split(',')]
+    return result
+
+
 if __name__ == '__main__':
     # 1- Scrap the data from the source.
     raw_html = simple_get(source)
@@ -137,8 +173,8 @@ if __name__ == '__main__':
         print("Extracting the university url is completed", "(total ", i, "/", len(university_url_list), ")")
 
         # Fetch Data for All Universities, Create University class objects and Store them in university_list.
-        print("Fetching 10 university for plotting purposes!")
-        for i in range(10):
+        print("Fetching 5 university for plotting purposes!")
+        for i in range(5):
             #for i in range(len(university_url_list)):
             url_as_string = ''.join(university_url_list[i])
             university.url = url_as_string
@@ -214,7 +250,7 @@ if __name__ == '__main__':
         print("Fetching completed.")
 
         # To create a Boxplot, we need to classify universities based on their regions.
-        
+        initialize_regions()
 
         # # Create Boxplot
         # print("Creating Boxplot...")
