@@ -16,7 +16,11 @@ Details can be found in [project-details.png](project-details.png)
 
 # Tools
 Python
+
 Pycharm IDE
+
 request (for data retrieval)
+
 BeautifulSoup4 (for data parsing)
+
 matplotlip, numpy and statsmodels.api ( for data visualization)
