@@ -1,5 +1,5 @@
 # Scrap and Visualize Data
-# Data Source: https://yokatlas.yok.gov.tr/lisans-anasayfa.php
+# Data Source: https://yokatlas.yok.gov.tr/lisans-bolum.php?b=10024
 #
 # For all the universities in Turkey that has Computer Engineering undergraduate program,
 # visualize the following for year 2017:
@@ -21,7 +21,8 @@ from requests.exceptions import RequestException
 from contextlib import closing
 from bs4 import BeautifulSoup
 
-source = "https://yokatlas.yok.gov.tr/lisans-anasayfa.php"
+# List of all the universities in Turkey that has Computer Engineering undergraduate program
+source = "https://yokatlas.yok.gov.tr/lisans-bolum.php?b=10024"
 
 def simple_get(url):
     """
@@ -62,5 +63,17 @@ def log_error(e):
 
 if __name__ == '__main__':
     # 1- Scrap the data from the source.
-    html_content = simple_get(source)
-    print(len(html_content))
+    raw_html = simple_get(source)
+    #print(len(raw_html))
+
+    # 2- Improve the data scraping
+    # Now that we got the raw_html, we need to select and extract the data needed.
+    # For that, we will use BeautifulSoup.
+    html = BeautifulSoup(raw_html, 'html.parser')
+
+    try:
+        for h4 in html.select('h4'):
+            print(h4.a['href'])  # might be improved to select among h4 titles, to exclude the last one
+    except:
+        print("Fetching error")
+
