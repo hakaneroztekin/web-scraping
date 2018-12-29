@@ -70,6 +70,14 @@ universities_in_marmara = []
 universities_in_karadeniz = []
 all_universities = []
 
+quotas_for_akdeniz = []
+quotas_for_dogu_anadolu = []
+quotas_for_ege = []
+quotas_for_guneydogu_anadolu = []
+quotas_for_ic_anadolu = []
+quotas_for_marmara = []
+quotas_for_karadeniz = []
+
 class University:
     def __init__(self):
         self.name = ""
@@ -116,6 +124,9 @@ def log_error(e):
     print(e)
 
 def initialize_all_universities():
+    global all_universities, universities_in_akdeniz, universities_in_dogu_anadolu, universities_in_ege
+    global universities_in_guneydogu_anadolu, universities_in_ic_anadolu, universities_in_marmara, universities_in_karadeniz
+
     all_universities.append(universities_in_akdeniz)
     all_universities.append(universities_in_dogu_anadolu)
     all_universities.append(universities_in_ege)
@@ -126,30 +137,37 @@ def initialize_all_universities():
 
 
 def initialize_regions():
+    global bolge_akdeniz, bolge_akdeniz_list
     bolge_akdeniz = "Adana, Antalya, Burdur, Hatay, Isparta,  Kahramanmaraş, Mersin, Osmaniye"
     bolge_akdeniz_list = convert_to_list(bolge_akdeniz)
     all_regions.append(bolge_akdeniz_list)
 
+    global bolge_dogu_anadolu, bolge_dogu_anadolu_list
     bolge_dogu_anadolu = "Ağrı, Ardahan, Bingöl, Bitlis, Elazığ, Erzincan, Erzurum, Hakkari, Iğdır, Kars, Malatya, Muş, Tunceli, Van"
     bolge_dogu_anadolu_list = convert_to_list(bolge_dogu_anadolu)
     all_regions.append(bolge_dogu_anadolu_list)
 
+    global bolge_ege, bolge_ege_list
     bolge_ege = "Afyonkarahisar, Aydın, Denizli, İzmir, Kütahya, Manisa, Muğla, Uşak"
     bolge_ege_list = convert_to_list(bolge_ege)
     all_regions.append(bolge_ege_list)
 
+    global bolge_guneydogu_anadolu, bolge_guneydogu_anadolu_list
     bolge_guneydogu_anadolu= "Adıyaman, Batman, Diyarbakır, Gaziantep, Mardin, Siirt, Şanlıurfa, Şırnak, Kilis"
     bolge_guneydogu_anadolu_list = convert_to_list(bolge_guneydogu_anadolu)
     all_regions.append(bolge_guneydogu_anadolu_list)
 
+    global bolge_ic_anadolu, bolge_ic_anadolu_list
     bolge_ic_anadolu = "Aksaray, Ankara, Çankırı, Eskişehir, Karaman, Kayseri, Kırıkkale, Kırşehir, Konya, Nevşehir, Niğde, Sivas, Yozgat"
     bolge_ic_anadolu_list = convert_to_list(bolge_ic_anadolu)
     all_regions.append(bolge_ic_anadolu_list)
 
+    global bolge_marmara, bolge_marmara_list
     bolge_marmara = "Balıkesir, Bilecik, Bursa, Çanakkale, Edirne, İstanbul, Kırklareli, Kocaeli, Sakarya, Tekirdağ, Yalova"
     bolge_marmara_list = convert_to_list(bolge_marmara)
     all_regions.append(bolge_marmara_list)
 
+    global bolge_karadeniz, bolge_karadeniz_list
     bolge_karadeniz = "Amasya, Artvin, Bartın, Bayburt, Bolu, Çorum, Düzce, Giresun, Gümüşhane, Karabük, Kastamonu, Ordu, Rize, Samsun, Sinop, Tokat, Trabzon, Zonguldak"
     bolge_karadeniz_list = convert_to_list(bolge_karadeniz)
     all_regions.append(bolge_karadeniz_list)
@@ -163,15 +181,40 @@ def convert_to_list(string):
 
 def add_to_region(university):
     # iterate through all the cities in all the regions
-    for region in all_regions:
-        for i in range(len(region)):
+    for index in range(len(all_regions)):
+        for j in range(len(all_regions[index])):
             #print(region[i])
-            if re.search(university.city, region[i], re.IGNORECASE):  # ignore case sensitivity and search for the match
+            if re.search(university.city, all_regions[index][j], re.IGNORECASE):  # ignore case sensitivity and search for the match
                 # indexes in all_regions and all_universities are the same for same regions
                 # so we can directly use the same index to add the university to that region
-                all_universities[i].append(university)
+                all_universities[index].append(university)
                 #print("added")
 
+def initialize_quotas():
+    print("Initializing quotas for the regions")
+
+    for i in range(len(universities_in_akdeniz)):
+        quotas_for_akdeniz.append(universities_in_akdeniz[i].quota)
+
+    for i in range(len(universities_in_dogu_anadolu)):
+        quotas_for_dogu_anadolu.append(universities_in_dogu_anadolu[i].quota)
+
+    for i in range(len(universities_in_ege)):
+        quotas_for_ege.append(universities_in_ege[i].quota)
+
+    for i in range(len(universities_in_guneydogu_anadolu)):
+        quotas_for_guneydogu_anadolu.append(universities_in_guneydogu_anadolu[i].quota)
+
+    for i in range(len(universities_in_ic_anadolu)):
+        quotas_for_ic_anadolu.append(universities_in_ic_anadolu[i].quota)
+
+    for i in range(len(universities_in_marmara)):
+        quotas_for_marmara.append(universities_in_marmara[i].quota)
+
+    for i in range(len(universities_in_karadeniz)):
+        quotas_for_karadeniz.append(universities_in_karadeniz[i].quota)
+
+    print("Initializing quotas for the regions completed")
 
 
 if __name__ == '__main__':
@@ -214,7 +257,6 @@ if __name__ == '__main__':
     # We need to extract only the ID part
     for i in range(len(university_url_list)):
         print("Looping through the university url list")
-        university = University()
 
         url = re.findall(r'\d+', university_url_list[i])
         university_url_list[i] = url
@@ -222,110 +264,110 @@ if __name__ == '__main__':
         print("Extracting the university url is completed", "(total ", i, "/", len(university_url_list), ")")
 
         # Fetch Data for All Universities, Create University class objects and Store them in university_list.
-        print("Fetching 5 university for plotting purposes!")
-        for i in range(5):
-            #for i in range(len(university_url_list)):
-            url_as_string = ''.join(university_url_list[i])
-            university.url = url_as_string
-            # Let's get University's City information in their homepage
-            # Example URL: https://yokatlas.yok.gov.tr/2017/lisans.php?y=106510077
-            university_profile_url = website_homepage + "2017/lisans.php?y=" + url_as_string
-            #print(university_profile_url)
+        print("Fetching 12 university for plotting purposes!")
 
-            profile_page_html = simple_get(university_profile_url)
+    for i in range(12):
+        university = University()
 
-            try:
-                profile_page_parsed = BeautifulSoup(profile_page_html, 'html.parser')
-            except:
-                print("Parse error (2)")
+        #for i in range(len(university_url_list)):
+        url_as_string = ''.join(university_url_list[i])
+        university.url = url_as_string
+        # Let's get University's City information in their homepage
+        # Example URL: https://yokatlas.yok.gov.tr/2017/lisans.php?y=106510077
+        university_profile_url = website_homepage + "lisans.php?y=" + url_as_string
+        #print(university_profile_url)
 
-            # Get Name and City Attributes
-            try:
-                # <div class="panel" style="margin:0px;background-color:#646464;">
-                for div in profile_page_parsed.findAll('div', {"style": "margin:0px;background-color:#646464;"}):
-                    name_and_city = div.h3.get_text()  # example: ABDULLAH GÜL ÜNİVERSİTESİ (KAYSERİ)
-                    name = re.search(r'(.*?)\(', name_and_city).group(1)  # ABDULLAH GÜL ÜNİVERSİTESİ
-                    city = re.search(r'\((.*?)\)', name_and_city).group(1)  # KAYSERİ
-                    university.name = name
-                    university.city = city
-                    #print(city)
-            except:
-                print("Fetching error (2)")
+        profile_page_html = simple_get(university_profile_url)
 
-            print("Fetching Name & City for id ", i, " is completed", "(total ", i, "/", len(university_url_list), ")")
+        try:
+            profile_page_parsed = BeautifulSoup(profile_page_html, 'html.parser')
+        except:
+            print("Parse error (2)")
 
+        # Get Name and City Attributes
+        try:
+            # <div class="panel" style="margin:0px;background-color:#646464;">
+            for div in profile_page_parsed.findAll('div', {"style": "margin:0px;background-color:#646464;"}):
+                name_and_city = div.h3.get_text()  # example: ABDULLAH GÜL ÜNİVERSİTESİ (KAYSERİ)
+                name = re.search(r'(.*?)\(', name_and_city).group(1)  # ABDULLAH GÜL ÜNİVERSİTESİ
+                city = re.search(r'\((.*?)\)', name_and_city).group(1)  # KAYSERİ
+                university.name = name
+                university.city = city
+                #print(city)
+        except:
+            print("Fetching error (2)")
 
-            # Get Program Name
-            try:
-                # <div class="panel" style="margin:0px;background-color:#646464;">
-                for h2 in profile_page_parsed.findAll('h2', {"class": "panel-title pull-left"}):
-                    # example: ANKARA ÜNİVERSİTESİ - Bilgisayar Mühendisliği (101110581) | YÖK Lisans Atlası
-                    text = h2.get_text()
-                    if 'Program' in text:
-                        program_code = re.findall(r'\d+', text)
-                        program_code_as_string = ''.join(program_code)
-                        university.program_code = program_code_as_string
-                        # print(university.program_code)
-            except:
-                print("Fetching error (3)")
-
-            print("Fetching Program Code for id ", i, "is completed", "(total ", i, "/", len(university_url_list), ")")
+        print("Fetching Name & City for id ", i, " is completed", "(total ", i, "/", len(university_url_list), ")")
 
 
-            # From this point on, let's try to fetch one university's quota's.
-            quota_request_url = website_homepage + "2017/content/lisans-dynamic/1000_2.php?y=" + url_as_string
-            #print(quota_request_url)
+        # Get Program Name
+        try:
+            # <div class="panel" style="margin:0px;background-color:#646464;">
+            for h2 in profile_page_parsed.findAll('h2', {"class": "panel-title pull-left"}):
+                # example: ANKARA ÜNİVERSİTESİ - Bilgisayar Mühendisliği (101110581) | YÖK Lisans Atlası
+                text = h2.get_text()
+                if 'Program' in text:
+                    program_code = re.findall(r'\d+', text)
+                    program_code_as_string = ''.join(program_code)
+                    university.program_code = program_code_as_string
+                    # print(university.program_code)
+        except:
+            print("Fetching error (3)")
 
-            quota_page_html = simple_get(quota_request_url)
-            try:
-                quota_page_parsed = BeautifulSoup(quota_page_html, 'html.parser')
-                #print(BeautifulSoup.prettify(quota_page_parsed))
-            except:
-                print("Parse error (3)")
-
-            try:
-                for td in quota_page_parsed.findAll('td', {"class": "tdr text-center"}):
-                    quota = td.get_text()
-                    university.quota = quota
-                #print(quota)
-            except:
-                print("Fetching error (4)")
-
-            print("Fetching Quota for id ", i, " is completed")
-
-            university_list.append(university)
-
-            # Match University Cities with Regions and Create Lists of Universities Based On Their Region
-            add_to_region(university)
-
-            #print(university.city, " ", university.quota)
-
-        print("Fetching completed.")
+        print("Fetching Program Code for id ", i, "is completed", "(total ", i, "/", len(university_url_list), ")")
 
 
-        # Create Boxplot
-        # print("Creating Boxplot...")
-        #
-        # # box_plot_data = []
-        # #
-        # # for i in range(len(university_list)):
-        # #     box_plot_data.append(university_list[i].quota)
-        #
-        # value1 = [82, 76, 24, 40, 67, 62, 75, 78, 71, 32, 98, 89, 78, 67, 72, 82, 87, 66, 56, 52]
-        # value2 = [62, 5, 91, 25, 36, 32, 96, 95, 3, 90, 95, 32, 27, 55, 100, 15, 71, 11, 37, 21]
-        # value3 = [23, 89, 12, 78, 72, 89, 25, 69, 68, 86, 19, 49, 15, 16, 16, 75, 65, 31, 25, 52]
-        # value4 = [59, 73, 70, 16, 81, 61, 88, 98, 10, 87, 29, 72, 16, 23, 72, 88, 78, 99, 75, 30]
-        #
-        # box_plot_data = [value1, value2, value3, value4]
-        #
-        # # Create a figure instance
-        # fig = plt.figure(1, figsize=(15, 10))
-        #
-        # # Create an axes instance
-        # ax = fig.add_subplot(111)
-        #
-        # # Create the boxplot
-        # bp = ax.boxplot(box_plot_data)
-        #
-        # # Save the figure
-        # fig.savefig('fig1.png', bbox_inches='tight')
+        # From this point on, let's try to fetch one university's quota's.
+        quota_request_url = website_homepage + "2017/content/lisans-dynamic/1000_2.php?y=" + url_as_string
+        #print(quota_request_url)
+
+        quota_page_html = simple_get(quota_request_url)
+        try:
+            quota_page_parsed = BeautifulSoup(quota_page_html, 'html.parser')
+            #print(BeautifulSoup.prettify(quota_page_parsed))
+        except:
+            print("Parse error (3)")
+
+        try:
+            for td in quota_page_parsed.findAll('td', {"class": "tdr text-center"}):
+                quota = td.get_text()
+                university.quota = quota
+            #print(quota)
+        except:
+            print("Fetching error (4)")
+
+        print("Fetching Quota for id ", i, " is completed")
+        print("###########################################")
+
+        university_list.append(university)
+
+        # Match University Cities with Regions and Create Lists of Universities Based On Their Region
+        add_to_region(university)
+
+
+    print("Fetching completed.")
+
+
+
+    # Create Boxplot
+    print("Creating Boxplot...")
+
+    # Strip City Information from Universities in the Region Lists
+    initialize_quotas()
+
+
+    #box_plot_data = [value1, value1, value1]
+
+    # box_plot_data = [quotas_for_akdeniz,
+    #                  quotas_for_dogu_anadolu,
+    #                  quotas_for_ege,
+    #                  quotas_for_guneydogu_anadolu,
+    #                  quotas_for_ic_anadolu,
+    #                  quotas_for_marmara,
+    #                  quotas_for_karadeniz]
+    #
+    #
+    # plt.boxplot(box_plot_data)
+    #
+    # # Save the figure
+    # # fig.savefig('fig1.png', bbox_inches='tight')
