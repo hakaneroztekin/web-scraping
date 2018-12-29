@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c480098a-79b0-4c81-b9d1-ca6dc9de8feb" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
-    </list>
+    <list default="true" id="c480098a-79b0-4c81-b9d1-ca6dc9de8feb" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,8 +18,9 @@
           <entry key="project.closed" value="2" />
           <entry key="project.open.time.1" value="1" />
           <entry key="project.open.time.13" value="1" />
+          <entry key="project.open.time.19" value="1" />
           <entry key="project.open.time.28" value="1" />
-          <entry key="project.opened" value="3" />
+          <entry key="project.opened" value="4" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -57,15 +55,11 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="121">
+            <state relative-caret-position="6118">
               <caret line="281" column="4" selection-start-line="281" selection-start-column="4" selection-end-line="281" selection-end-column="4" />
               <folding>
                 <element signature="e#787#796#0" expanded="true" />
                 <marker date="1546100679736" expanded="true" signature="4470:4471" ph="..." />
-                <marker date="1546100679736" expanded="true" signature="4541:6455" ph="..." />
-                <marker date="1546100679736" expanded="true" signature="6483:6488" ph="..." />
-                <marker date="1546100679736" expanded="true" signature="7314:7592" ph="..." />
-                <marker date="1546100679736" expanded="true" signature="7665:9290" ph="..." />
               </folding>
             </state>
           </provider>
@@ -219,9 +213,10 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.5835141" visible="true" weight="0.06580938" />
-      <window_info id="Structure" order="1" sideWeight="0.4164859" side_tool="true" visible="true" weight="0.06580938" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.5822148" visible="true" weight="0.06656581" />
+      <window_info id="Structure" order="1" sideWeight="0.41778523" side_tool="true" visible="true" weight="0.06656581" />
       <window_info id="Favorites" order="2" sideWeight="0.5016779" side_tool="true" weight="0.120272316" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32885906" />
@@ -238,7 +233,7 @@
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info active="true" anchor="right" id="SciView" order="3" visible="true" weight="0.5340393" />
+      <window_info active="true" anchor="right" id="SciView" order="3" visible="true" weight="0.32299545" />
       <window_info anchor="right" id="Database" order="4" />
       <window_info anchor="right" id="Debug" order="5" weight="0.3161876" />
     </layout>
@@ -356,15 +351,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="121">
+        <state relative-caret-position="6118">
           <caret line="281" column="4" selection-start-line="281" selection-start-column="4" selection-end-line="281" selection-end-column="4" />
           <folding>
             <element signature="e#787#796#0" expanded="true" />
             <marker date="1546100679736" expanded="true" signature="4470:4471" ph="..." />
-            <marker date="1546100679736" expanded="true" signature="4541:6455" ph="..." />
-            <marker date="1546100679736" expanded="true" signature="6483:6488" ph="..." />
-            <marker date="1546100679736" expanded="true" signature="7314:7592" ph="..." />
-            <marker date="1546100679736" expanded="true" signature="7665:9290" ph="..." />
           </folding>
         </state>
       </provider>
