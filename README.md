@@ -1,7 +1,7 @@
 # Web Scraping With Python
 A web scraping project with Python.
 
-**Project Demo:** [site](https://youtu.be/mSIS5HtdW70).  
+ [**Watch The Project Demo**](https://youtu.be/mSIS5HtdW70).  
 
 # How it Works
 The project mainly accomplishes;
