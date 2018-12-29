@@ -22,17 +22,14 @@
 # 5- Wrap-up & Upload the project
 #
 
+import re
+from contextlib import closing
+
+import matplotlib.pyplot as plt
+import statsmodels.api as sm
+from bs4 import BeautifulSoup
 from requests import get
 from requests.exceptions import RequestException
-from contextlib import closing
-from bs4 import BeautifulSoup
-
-import re
-import matplotlib.pyplot as plt
-import numpy as np
-from numpy.polynomial.polynomial import polyfit
-import statsmodels.api as sm
-
 
 # Website to be scraped
 website_homepage = "https://yokatlas.yok.gov.tr/"
@@ -479,31 +476,29 @@ if __name__ == '__main__':
 
 
     # Scatter Plot
-    try:
-        print("Creating ScatterPlot...")
 
-        results = sm.OLS(lowest_student_rank_list, sm.add_constant(avg_mat_net_list)).fit()
+    print("Creating ScatterPlot...")
 
-        for i in range(len(avg_mat_net_list)):
-            print(avg_mat_net_list[i])
+    results = sm.OLS(lowest_student_rank_list, sm.add_constant(avg_mat_net_list)).fit()
 
-        plt.scatter(avg_mat_net_list, lowest_student_rank_list)
+    print("mat size:", len(avg_mat_net_list),
+          "rank size:", len(lowest_student_rank))
 
-        #plt.plot(avg_mat_net_list, b + m * avg_mat_net_list, '-')
+    plt.scatter(avg_mat_net_list, lowest_student_rank_list)
 
-        # X_plot = np.linspace(0, 1, 100)
-        # plt.plot(X_plot, X_plot * results.params[0] + results.params[1])
+    #plt.plot(avg_mat_net_list, b + m * avg_mat_net_list, '-')
 
-        plt.xlabel('Average Math Net')
-        plt.ylabel('Lowest Student Rank')
-        plt.show()
+    # X_plot = np.linspace(0, 1, 100)
+    # plt.plot(X_plot, X_plot * results.params[0] + results.params[1])
 
-        r_squared = results.rsquared
-        print("R squared = ", r_squared)
+    plt.xlabel('Average Math Net')
+    plt.ylabel('Lowest Student Rank')
+    plt.show()
 
-        print("Data is plotted as ScatterPlot, exiting")
+    r_squared = results.rsquared
+    print("R squared = ", r_squared)
 
-    except:
-        print("Scatterplot failed")
+    print("Data is plotted as ScatterPlot, exiting")
+
 
 
