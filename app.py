@@ -87,10 +87,10 @@ class University:
         self.quota = 0  # "kontenjan"
         self.region = ""  # region in Turkey
 
-        # Fyi, in the website, some of the following informations are missing
-        # Also rank on which point type (YGS1, YGS2...) is not determined
-        # So YGS-1 will be used.
-        self.avg_math_2017 = 0
+        # Note that, Lowest Student Rank is not available for almost all the universities for 2017.
+        # Because we have to relate avg_maths with lowest_student_rank, the relation will fail.
+        # Instead, to show the relation and scatterplot with quality, data for 2018 will be used.
+        self.avg_math_2018 = 0
         self.lowest_student_rank = 0
 
 def simple_get(url):
@@ -342,14 +342,15 @@ if __name__ == '__main__':
         print("Fetching Program Code for id ", i, "is completed", "( total ", i, "/", len(university_url_list), ")")
 
         # Get Average Net Math Questions in YGS 2017
-        # Fetch URL Example: https://yokatlas.yok.gov.tr/2017/content/lisans-dynamic/1210a.php?y=101110581
-        avg_ygs_nets_request_url = website_homepage + "2017/content/lisans-dynamic/1210a.php?y=" + url_as_string
-        #print(quota_request_url)
+        # Note that, Lowest Student Rank is not available for almost all the universities for 2017.
+        # Because we have to relate avg_maths with lowest_student_rank, the relation will fail.
+        # Instead, to show the relation and scatterplot with quality, data for 2018 will be used.
+        avg_ygs_nets_request_url = website_homepage + "content/lisans-dynamic/1210a.php?y=" + url_as_string
+        # Fetch URL Example: https://yokatlas.yok.gov.tr/content/lisans-dynamic/1210a.php?y=106910294
 
         avg_ygs_nets_page_html = simple_get(avg_ygs_nets_request_url)
         try:
             avg_ygs_nets_page_parsed = BeautifulSoup(avg_ygs_nets_page_html, 'html.parser')
-            #print(BeautifulSoup.prettify(quota_page_parsed))
         except:
             print("Parse error (3)")
 
@@ -364,7 +365,32 @@ if __name__ == '__main__':
         except:
             print("Fetching error (3)")
 
-        print("Fetching Program Code for id ", i, "is completed", "( total ", i, "/", len(university_url_list), ")")
+        print("Fetching Avg Math Nets for id ", i, "is completed", "( total ", i, "/", len(university_url_list), ")")
+
+        # Get Lowest Student Rank for TYT in 2018
+        # Note that, Lowest Student Rank is not available for almost all the universities for 2017.
+        # Because we have to relate avg_maths with lowest_student_rank, the relation will fail.
+        # Instead, to show the relation and scatterplot with quality, data for 2018 will be used.
+        # Fetch URL Example: https://yokatlas.yok.gov.tr/content/lisans-dynamic/1230.php?y=106910294
+        lowest_student_rank_request_url = website_homepage + "content/lisans-dynamic/1230.php?y=" + url_as_string
+        # print(quota_request_url)
+
+        lowest_student_rank_page = simple_get(lowest_student_rank_request_url)
+        try:
+            lowest_student_rank_page_parsed = BeautifulSoup(lowest_student_rank_page, 'html.parser')
+        except:
+            print("Parse error (4)")
+
+        try:
+            td_table = lowest_student_rank_page_parsed.findAll('td')
+            lowest_student_rank = td_table[len(td_table)-2].get_text().strip()
+            #print(lowest_student_rank)
+            university.lowest_student_rank = lowest_student_rank
+            
+        except:
+            print("Fetching error (4)")
+
+        print("Fetching Lowest Student Rank for id ", i, "is completed", "( total ", i, "/", len(university_url_list), ")")
 
         # Get Quotas
         quota_request_url = website_homepage + "2017/content/lisans-dynamic/1000_2.php?y=" + url_as_string
@@ -375,7 +401,7 @@ if __name__ == '__main__':
             quota_page_parsed = BeautifulSoup(quota_page_html, 'html.parser')
             #print(BeautifulSoup.prettify(quota_page_parsed))
         except:
-            print("Parse error (4)")
+            print("Parse error (5)")
 
         try:
             for td in quota_page_parsed.findAll('td', {"class": "tdr text-center"}):
@@ -383,7 +409,7 @@ if __name__ == '__main__':
                 university.quota = quota
             #print(quota)
         except:
-            print("Fetching error (4)")
+            print("Fetching error (5)")
 
         print("Fetching Quota for id ", i, " is completed", "( total ", i, "/", len(university_url_list), ")")
         print("###########################################")
