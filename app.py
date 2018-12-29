@@ -406,12 +406,12 @@ if __name__ == '__main__':
 
         try:
             #print(university.avg_math_2018, university.lowest_student_rank)
-            math_avg_int = make_float(university.avg_math_2018)
+            math_avg_float = make_float(university.avg_math_2018)
             lowest_student_rank_int = make_int(university.lowest_student_rank)
             # check both for to ensure if they both are parsed successfully
-            if math_avg_int is not 0 and lowest_student_rank_int is not 0:
-                avg_mat_net_list.append(int(math_avg_int))
-                lowest_student_rank_list.append(float(lowest_student_rank))
+            if math_avg_float is not 0 and lowest_student_rank_int is not 0:
+                avg_mat_net_list.append(math_avg_float)
+                lowest_student_rank_list.append(lowest_student_rank_int)
 
         except:
             print("Scatter Plot Data Initialization Error")
