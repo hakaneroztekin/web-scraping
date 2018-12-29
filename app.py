@@ -33,6 +33,12 @@ from bs4 import BeautifulSoup
 import json
 import re
 
+import numpy as np
+import matplotlib as mpl
+import matplotlib.pyplot as plt
+
+mpl .use('agg') # agg backend is to create plot as a .png file
+
 # Website to be scraped
 website_homepage = "https://yokatlas.yok.gov.tr/"
 
@@ -44,12 +50,11 @@ university_url_list = []
 
 university_list = []  # to keep list of universities
 
-quota_found = 0
-
 
 class University:
     def __init__(self):
         self.name = ""
+        self.program_code = ""  # There are multiple pages with same name, they differ in the program code
         self.url = ""
         self.city = ""
         self.quota = 0  # "kontenjan"
@@ -100,7 +105,10 @@ if __name__ == '__main__':
     # 2- Improve the data scraping
     # Now that we got the raw_html, we need to select and extract the data needed.
     # For that, we will use BeautifulSoup.
-    html = BeautifulSoup(raw_html, 'html.parser')
+    try:
+        html = BeautifulSoup(raw_html, 'html.parser')
+    except:
+        print("Parse error")
 
     # Here we can list URL's of each university's own page
     # When we will be able to fetch one university's quotas, this will be used to fetch all universities' quotas.
@@ -109,7 +117,9 @@ if __name__ == '__main__':
             # print(h4.a['href'])
             university_url_list.append(h4.a['href'])
     except:
-        print("Fetching error")
+        print("Fetching error (1)")
+
+    print("Fetching university url list is completed")
 
     # remove the (unnecessary) last element
     university_url_list.remove('netler-tablo.php?b=10024')
@@ -118,51 +128,81 @@ if __name__ == '__main__':
     # Each item is in the form: lisans.php?y=<id> For example lisans.php?y=106510077
     # We need to extract only the ID part
     for i in range(len(university_url_list)):
+        print("Looping through the university url list")
         university = University()
 
         url = re.findall(r'\d+', university_url_list[i])
         university_url_list[i] = url
 
-    # Fetch Data for All Universities, Create University class objects and Store them in university_list.
-    for i in range(len(university_url_list)):
-        url_as_string = ''.join(university_url_list[i])
-        university.url = url_as_string
-        # Let's get University's City information in their homepage
-        # Example URL: https://yokatlas.yok.gov.tr/2017/lisans.php?y=106510077
-        university_profile_url = website_homepage + "2017/lisans.php?y=" + url_as_string
-        #print(university_profile_url)
+        print("Extracting url's from university url list is completed")
 
-        profile_page_html = simple_get(university_profile_url)
-        profile_page_parsed = BeautifulSoup(profile_page_html, 'html.parser')
+        # Fetch Data for All Universities, Create University class objects and Store them in university_list.
+        for i in range(len(university_url_list)):
+            url_as_string = ''.join(university_url_list[i])
+            university.url = url_as_string
+            # Let's get University's City information in their homepage
+            # Example URL: https://yokatlas.yok.gov.tr/2017/lisans.php?y=106510077
+            university_profile_url = website_homepage + "2017/lisans.php?y=" + url_as_string
+            #print(university_profile_url)
 
-        try:
-            # <div class="panel" style="margin:0px;background-color:#646464;">
-            for div in profile_page_parsed.findAll('div', {"style": "margin:0px;background-color:#646464;"}):
-                name_and_city = div.h3.get_text() # example: ABDULLAH GÜL ÜNİVERSİTESİ (KAYSERİ)
-                city = re.search(r'\((.*?)\)', name_and_city).group(1) # KAYSERİ
-                university.city = city
-                #print(city)
-        except:
-            print("Fetching error")
+            profile_page_html = simple_get(university_profile_url)
+            profile_page_parsed = BeautifulSoup(profile_page_html, 'html.parser')
+
+            # Get Name and City Attributes
+            # try:
+            #     # <div class="panel" style="margin:0px;background-color:#646464;">
+            #     for div in profile_page_parsed.findAll('div', {"style": "margin:0px;background-color:#646464;"}):
+            #         name_and_city = div.h3.get_text()  # example: ABDULLAH GÜL ÜNİVERSİTESİ (KAYSERİ)
+            #
+            #         name = re.search(r'(.*?)\(', name_and_city).group(1)  #
+            #
+            #
+            #         city = re.search(r'\((.*?)\)', name_and_city).group(1)  # KAYSERİ
+            #         university.city = city
+            #         #print(city)
+            # except:
+            #     print("Fetching error (2)")
+            #
+            # print("Name & City Fetch is completed")
 
 
+            # Get Program Name
+            try:
+                # <div class="panel" style="margin:0px;background-color:#646464;">
+                for h2 in profile_page_parsed.findAll('h2', {"class": "panel-title pull-left"}):
+                        # example: ANKARA ÜNİVERSİTESİ - Bilgisayar Mühendisliği (101110581) | YÖK Lisans Atlası
+                        text = h2.get_text()
+                        if 'Program' in text:
+                            program_code = re.findall(r'\d+', text)
+                            program_code_as_string = ''.join(program_code)
+                            university.program_code = program_code_as_string
+                            # print(university.program_code)
 
-        # From this point on, let's try to fetch one university's quota's.
-        quota_request_url = website_homepage + "2017/content/lisans-dynamic/1000_2.php?y=" + url_as_string
-        #print(quota_request_url)
+                # name = re.search(r'(.*?)\(', name_and_city).group(1)  #
+                # university.city = city
+                # print(city)
 
-        quota_page_html = simple_get(quota_request_url)
-        quota_page_parsed = BeautifulSoup(quota_page_html, 'html.parser')
-        #print(BeautifulSoup.prettify(quota_page_parsed))
+            except:
+                print("Fetching error (3)")
 
-        try:
-            for td in quota_page_parsed.findAll('td', {"class": "tdr text-center"}):
-                quota = td.get_text()
-                university.quota = quota
-            #print(quota)
-        except:
-            print("Fetching error")
 
-        university_list.append(university)
-        #print(university.city, " ", university.quota)
+            # From this point on, let's try to fetch one university's quota's.
+            quota_request_url = website_homepage + "2017/content/lisans-dynamic/1000_2.php?y=" + url_as_string
+            #print(quota_request_url)
 
+            quota_page_html = simple_get(quota_request_url)
+            quota_page_parsed = BeautifulSoup(quota_page_html, 'html.parser')
+            #print(BeautifulSoup.prettify(quota_page_parsed))
+
+            try:
+                for td in quota_page_parsed.findAll('td', {"class": "tdr text-center"}):
+                    quota = td.get_text()
+                    university.quota = quota
+                #print(quota)
+            except:
+                print("Fetching error (4)")
+
+            university_list.append(university)
+            #print(university.city, " ", university.quota)
+
+        # Create Boxplot
