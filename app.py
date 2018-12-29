@@ -137,7 +137,9 @@ if __name__ == '__main__':
         print("Extracting the university url is completed", "(total ", i, "/", len(university_url_list), ")")
 
         # Fetch Data for All Universities, Create University class objects and Store them in university_list.
-        for i in range(len(university_url_list)):
+        print("Fetching 10 university for plotting purposes!")
+        for i in range(10):
+            #for i in range(len(university_url_list)):
             url_as_string = ''.join(university_url_list[i])
             university.url = url_as_string
             # Let's get University's City information in their homepage
@@ -146,7 +148,11 @@ if __name__ == '__main__':
             #print(university_profile_url)
 
             profile_page_html = simple_get(university_profile_url)
-            profile_page_parsed = BeautifulSoup(profile_page_html, 'html.parser')
+
+            try:
+                profile_page_parsed = BeautifulSoup(profile_page_html, 'html.parser')
+            except:
+                print("Parse error (2)")
 
             # Get Name and City Attributes
             try:
@@ -190,7 +196,7 @@ if __name__ == '__main__':
                 quota_page_parsed = BeautifulSoup(quota_page_html, 'html.parser')
                 #print(BeautifulSoup.prettify(quota_page_parsed))
             except:
-                print("Parse error (2)")
+                print("Parse error (3)")
 
             try:
                 for td in quota_page_parsed.findAll('td', {"class": "tdr text-center"}):
@@ -205,3 +211,34 @@ if __name__ == '__main__':
             university_list.append(university)
             #print(university.city, " ", university.quota)
 
+        print("Fetching completed.")
+
+        # To create a Boxplot, we need to classify universities based on their regions.
+        
+
+        # # Create Boxplot
+        # print("Creating Boxplot...")
+        #
+        # # box_plot_data = []
+        # #
+        # # for i in range(len(university_list)):
+        # #     box_plot_data.append(university_list[i].quota)
+        #
+        # value1 = [82, 76, 24, 40, 67, 62, 75, 78, 71, 32, 98, 89, 78, 67, 72, 82, 87, 66, 56, 52]
+        # value2 = [62, 5, 91, 25, 36, 32, 96, 95, 3, 90, 95, 32, 27, 55, 100, 15, 71, 11, 37, 21]
+        # value3 = [23, 89, 12, 78, 72, 89, 25, 69, 68, 86, 19, 49, 15, 16, 16, 75, 65, 31, 25, 52]
+        # value4 = [59, 73, 70, 16, 81, 61, 88, 98, 10, 87, 29, 72, 16, 23, 72, 88, 78, 99, 75, 30]
+        #
+        # box_plot_data = [value1, value2, value3, value4]
+        #
+        # # Create a figure instance
+        # fig = plt.figure(1, figsize=(15, 10))
+        #
+        # # Create an axes instance
+        # ax = fig.add_subplot(111)
+        #
+        # # Create the boxplot
+        # bp = ax.boxplot(box_plot_data)
+        #
+        # # Save the figure
+        # fig.savefig('fig1.png', bbox_inches='tight')
