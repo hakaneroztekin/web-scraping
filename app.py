@@ -12,7 +12,7 @@
 # 2- Improve the data scraping
 # > +Get clear URL's for each university
 # > +Get Quota for Specific University
-# > Get University's City
+# > +Get University's City
 # > Get Quota & City for All Universities'
 #
 # 3- Use boxplot
@@ -146,8 +146,6 @@ if __name__ == '__main__':
         #print(quota)
     except:
         print("Fetching error")
-
-
 
 
 class University:
