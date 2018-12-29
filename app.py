@@ -87,6 +87,12 @@ class University:
         self.quota = 0  # "kontenjan"
         self.region = ""  # region in Turkey
 
+        # Fyi, in the website, some of the following informations are missing
+        # Also rank on which point type (YGS1, YGS2...) is not determined
+        # So YGS-1 will be used.
+        self.avg_math_2017 = 0
+        self.lowest_student_rank = 0
+
 def simple_get(url):
     """
     Attempts to get the content at `url` by making an HTTP GET request.
@@ -319,7 +325,6 @@ if __name__ == '__main__':
 
         print("Fetching Name & City for id ", i, " is completed", "( total ", i, "/", len(university_url_list), ")")
 
-
         # Get Program Name
         try:
             # <div class="panel" style="margin:0px;background-color:#646464;">
@@ -336,8 +341,32 @@ if __name__ == '__main__':
 
         print("Fetching Program Code for id ", i, "is completed", "( total ", i, "/", len(university_url_list), ")")
 
+        # Get Average Net Math Questions in YGS 2017
+        # Fetch URL Example: https://yokatlas.yok.gov.tr/2017/content/lisans-dynamic/1210a.php?y=101110581
+        avg_ygs_nets_request_url = website_homepage + "2017/content/lisans-dynamic/1210a.php?y=" + url_as_string
+        #print(quota_request_url)
 
-        # From this point on, let's try to fetch one university's quota's.
+        avg_ygs_nets_page_html = simple_get(avg_ygs_nets_request_url)
+        try:
+            avg_ygs_nets_page_parsed = BeautifulSoup(avg_ygs_nets_page_html, 'html.parser')
+            #print(BeautifulSoup.prettify(quota_page_parsed))
+        except:
+            print("Parse error (3)")
+
+        try:
+            td_table = avg_ygs_nets_page_parsed.findAll('td')
+            for i in range(len(td_table)):
+                if td_table[i].get_text() == "YGS Matematik (40 soruda)":
+                    math_avg = td_table[i+1].get_text()
+                    #print(math_avg, university.name, avg_ygs_nets_request_url)
+                    university.avg_math_2017 = math_avg
+
+        except:
+            print("Fetching error (3)")
+
+        print("Fetching Program Code for id ", i, "is completed", "( total ", i, "/", len(university_url_list), ")")
+
+        # Get Quotas
         quota_request_url = website_homepage + "2017/content/lisans-dynamic/1000_2.php?y=" + url_as_string
         #print(quota_request_url)
 
@@ -346,7 +375,7 @@ if __name__ == '__main__':
             quota_page_parsed = BeautifulSoup(quota_page_html, 'html.parser')
             #print(BeautifulSoup.prettify(quota_page_parsed))
         except:
-            print("Parse error (3)")
+            print("Parse error (4)")
 
         try:
             for td in quota_page_parsed.findAll('td', {"class": "tdr text-center"}):
