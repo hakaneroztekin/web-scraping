@@ -37,7 +37,7 @@ import numpy as np
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 
-mpl .use('agg') # agg backend is to create plot as a .png file
+#mpl .use('agg') # agg backend is to create plot as a .png file
 
 # Website to be scraped
 website_homepage = "https://yokatlas.yok.gov.tr/"
@@ -190,29 +190,49 @@ def add_to_region(university):
                 all_universities[index].append(university)
                 #print("added")
 
+def make_int(s):
+    s = s.strip()
+    list_of_decimals_in_s = re.findall(r'\d+', s)
+    decimals_as_string = ''.join(list_of_decimals_in_s)
+    return int(decimals_as_string) if decimals_as_string else 0  # return as integer, and return 0 if blank
+
 def initialize_quotas():
     print("Initializing quotas for the regions")
 
     for i in range(len(universities_in_akdeniz)):
-        quotas_for_akdeniz.append(universities_in_akdeniz[i].quota)
+        quota = make_int(universities_in_akdeniz[i].quota)
+        if quota is not 0:
+            quotas_for_akdeniz.append(int(universities_in_akdeniz[i].quota))
 
     for i in range(len(universities_in_dogu_anadolu)):
-        quotas_for_dogu_anadolu.append(universities_in_dogu_anadolu[i].quota)
+        quota = make_int(universities_in_dogu_anadolu[i].quota)
+        if quota is not 0:
+            quotas_for_dogu_anadolu.append(int(universities_in_dogu_anadolu[i].quota))
 
     for i in range(len(universities_in_ege)):
-        quotas_for_ege.append(universities_in_ege[i].quota)
+        quota = make_int(universities_in_ege[i].quota)
+        if quota is not 0:
+            quotas_for_ege.append(int(universities_in_ege[i].quota))
 
     for i in range(len(universities_in_guneydogu_anadolu)):
-        quotas_for_guneydogu_anadolu.append(universities_in_guneydogu_anadolu[i].quota)
+        quota = make_int(universities_in_guneydogu_anadolu[i].quota)
+        if quota is not 0:
+            quotas_for_guneydogu_anadolu.append(int(universities_in_guneydogu_anadolu[i].quota))
 
     for i in range(len(universities_in_ic_anadolu)):
-        quotas_for_ic_anadolu.append(universities_in_ic_anadolu[i].quota)
+        quota = make_int(universities_in_ic_anadolu[i].quota)
+        if quota is not 0:
+            quotas_for_ic_anadolu.append(int(universities_in_ic_anadolu[i].quota))
 
     for i in range(len(universities_in_marmara)):
-        quotas_for_marmara.append(universities_in_marmara[i].quota)
+        quota = make_int(universities_in_marmara[i].quota)
+        if quota is not 0:
+            quotas_for_marmara.append(int(universities_in_marmara[i].quota))
 
     for i in range(len(universities_in_karadeniz)):
-        quotas_for_karadeniz.append(universities_in_karadeniz[i].quota)
+        quota = make_int(universities_in_karadeniz[i].quota)
+        if quota is not 0:
+            quotas_for_karadeniz.append(int(universities_in_karadeniz[i].quota))
 
     print("Initializing quotas for the regions completed")
 
@@ -264,9 +284,9 @@ if __name__ == '__main__':
         print("Extracting the university url is completed", "(total ", i, "/", len(university_url_list), ")")
 
         # Fetch Data for All Universities, Create University class objects and Store them in university_list.
-        print("Fetching 12 university for plotting purposes!")
+        print("Fetching the first 100 university for plotting purposes!")
 
-    for i in range(12):
+    for i in range(100):
         university = University()
 
         #for i in range(len(university_url_list)):
@@ -297,7 +317,7 @@ if __name__ == '__main__':
         except:
             print("Fetching error (2)")
 
-        print("Fetching Name & City for id ", i, " is completed", "(total ", i, "/", len(university_url_list), ")")
+        print("Fetching Name & City for id ", i, " is completed", "( total ", i, "/", len(university_url_list), ")")
 
 
         # Get Program Name
@@ -314,7 +334,7 @@ if __name__ == '__main__':
         except:
             print("Fetching error (3)")
 
-        print("Fetching Program Code for id ", i, "is completed", "(total ", i, "/", len(university_url_list), ")")
+        print("Fetching Program Code for id ", i, "is completed", "( total ", i, "/", len(university_url_list), ")")
 
 
         # From this point on, let's try to fetch one university's quota's.
@@ -336,7 +356,7 @@ if __name__ == '__main__':
         except:
             print("Fetching error (4)")
 
-        print("Fetching Quota for id ", i, " is completed")
+        print("Fetching Quota for id ", i, " is completed", "( total ", i, "/", len(university_url_list), ")")
         print("###########################################")
 
         university_list.append(university)
@@ -350,24 +370,3 @@ if __name__ == '__main__':
 
 
     # Create Boxplot
-    print("Creating Boxplot...")
-
-    # Strip City Information from Universities in the Region Lists
-    initialize_quotas()
-
-
-    #box_plot_data = [value1, value1, value1]
-
-    # box_plot_data = [quotas_for_akdeniz,
-    #                  quotas_for_dogu_anadolu,
-    #                  quotas_for_ege,
-    #                  quotas_for_guneydogu_anadolu,
-    #                  quotas_for_ic_anadolu,
-    #                  quotas_for_marmara,
-    #                  quotas_for_karadeniz]
-    #
-    #
-    # plt.boxplot(box_plot_data)
-    #
-    # # Save the figure
-    # # fig.savefig('fig1.png', bbox_inches='tight')
