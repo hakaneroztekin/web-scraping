@@ -11,7 +11,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/Project4$Unnamed.coverage" NAME="Unnamed Coverage Results" MODIFIED="1546089983967" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Project4$Unnamed.coverage" NAME="Unnamed Coverage Results" MODIFIED="1546092375692" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="FUSProjectUsageTrigger">
     <session id="-283557845">
@@ -27,23 +27,23 @@
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="png" value="3" />
-          <entry key="py" value="17" />
+          <entry key="py" value="18" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="Image" value="3" />
-          <entry key="Python" value="17" />
+          <entry key="Python" value="18" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="10732" />
+          <entry key="py" value="11369" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Python" value="10732" />
+          <entry key="Python" value="11369" />
         </counts>
       </usages-collector>
     </session>
@@ -56,34 +56,16 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="99">
-              <caret line="386" column="4" selection-start-line="386" selection-start-column="4" selection-end-line="386" selection-end-column="4" />
+            <state relative-caret-position="-16">
+              <caret line="361" column="37" selection-start-line="361" selection-start-column="37" selection-end-line="361" selection-end-column="37" />
               <folding>
                 <element signature="e#847#871#0" expanded="true" />
-                <marker date="1546089966998" expanded="true" signature="4550:4551" ph="..." />
-                <marker date="1546089966998" expanded="true" signature="4621:6535" ph="..." />
-                <marker date="1546089966998" expanded="true" signature="6563:6568" ph="..." />
-                <marker date="1546089966998" expanded="true" signature="7394:7504" ph="..." />
-                <marker date="1546089966998" expanded="true" signature="7577:9202" ph="..." />
+                <marker date="1546092232266" expanded="true" signature="4440:4441" ph="..." />
+                <marker date="1546092232266" expanded="true" signature="4511:6425" ph="..." />
+                <marker date="1546092232266" expanded="true" signature="6453:6458" ph="..." />
+                <marker date="1546092232266" expanded="true" signature="7284:7394" ph="..." />
+                <marker date="1546092232266" expanded="true" signature="7467:9092" ph="..." />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37/Lib/re.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="109">
-              <caret line="222" selection-start-line="222" selection-end-line="222" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/venv/Lib/site-packages/bs4/element.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="132">
-              <caret line="1010" selection-start-line="1010" selection-end-line="1010" />
             </state>
           </provider>
         </entry>
@@ -99,14 +81,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>quota_list</find>
-      <find>city</find>
-      <find>program_name</find>
-      <find>join</find>
-      <find>re.</find>
-      <find>university.na</find>
-      <find>Parse Err</find>
-      <find>Parse Er</find>
       <find>convert_to_list</find>
       <find>plotting pu</find>
       <find>extend</find>
@@ -125,10 +99,18 @@
       <find>get_text() ==</find>
       <find>integers</find>
       <find>re.search</find>
-      <find>quota</find>
-      <find>lowest_student</find>
       <find>findall</find>
       <find>re.findall</find>
+      <find>avg_mat</find>
+      <find>4</find>
+      <find>quota</find>
+      <find>global</find>
+      <find>quotas_for_karadeniz</find>
+      <find>Avg Math Nets for id</find>
+      <find>extracting</find>
+      <find>avg_mat_net_list</find>
+      <find>lowest_student</find>
+      <find>avg_math</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -258,7 +240,7 @@
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="SciView" order="3" weight="0.27760968" />
       <window_info anchor="right" id="Database" order="4" />
-      <window_info active="true" anchor="right" id="Debug" order="5" visible="true" weight="0.34493193" />
+      <window_info active="true" anchor="right" id="Debug" order="5" visible="true" weight="0.3161876" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -272,8 +254,13 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/app.py</url>
-          <line>392</line>
-          <option name="timeStamp" value="33" />
+          <line>479</line>
+          <option name="timeStamp" value="38" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/app.py</url>
+          <line>370</line>
+          <option name="timeStamp" value="42" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
@@ -358,17 +345,24 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/venv/Lib/site-packages/matplotlib/axes/_axes.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="109">
+          <caret line="4181" selection-start-line="4181" selection-end-line="4181" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="99">
-          <caret line="386" column="4" selection-start-line="386" selection-start-column="4" selection-end-line="386" selection-end-column="4" />
+        <state relative-caret-position="-16">
+          <caret line="361" column="37" selection-start-line="361" selection-start-column="37" selection-end-line="361" selection-end-column="37" />
           <folding>
             <element signature="e#847#871#0" expanded="true" />
-            <marker date="1546089966998" expanded="true" signature="4550:4551" ph="..." />
-            <marker date="1546089966998" expanded="true" signature="4621:6535" ph="..." />
-            <marker date="1546089966998" expanded="true" signature="6563:6568" ph="..." />
-            <marker date="1546089966998" expanded="true" signature="7394:7504" ph="..." />
-            <marker date="1546089966998" expanded="true" signature="7577:9202" ph="..." />
+            <marker date="1546092232266" expanded="true" signature="4440:4441" ph="..." />
+            <marker date="1546092232266" expanded="true" signature="4511:6425" ph="..." />
+            <marker date="1546092232266" expanded="true" signature="6453:6458" ph="..." />
+            <marker date="1546092232266" expanded="true" signature="7284:7394" ph="..." />
+            <marker date="1546092232266" expanded="true" signature="7467:9092" ph="..." />
           </folding>
         </state>
       </provider>

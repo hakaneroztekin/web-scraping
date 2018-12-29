@@ -15,29 +15,20 @@
 # > +Get University's City
 # > +Get Quota & City for All Universities'
 #
-# 3- Use boxplot
+# + 3- Use boxplot
 #
 # 4- Use scatterplot
-# > Relate Universitys' City with Region
-# > Use scatterplot
 #
 # 5- Wrap-up & Upload the project
 #
-
 
 from requests import get
 from requests.exceptions import RequestException
 from contextlib import closing
 from bs4 import BeautifulSoup
 
-import json
 import re
-
-import numpy as np
-import matplotlib as mpl
 import matplotlib.pyplot as plt
-
-#mpl .use('agg') # agg backend is to create plot as a .png file
 
 # Website to be scraped
 website_homepage = "https://yokatlas.yok.gov.tr/"
@@ -77,6 +68,10 @@ quotas_for_guneydogu_anadolu = []
 quotas_for_ic_anadolu = []
 quotas_for_marmara = []
 quotas_for_karadeniz = []
+
+# For Scatter Plot
+avg_mat_net_list = []
+lowest_student_rank_list = []
 
 class University:
     def __init__(self):
@@ -281,19 +276,24 @@ if __name__ == '__main__':
 
     # Each item is in the form: lisans.php?y=<id> For example lisans.php?y=106510077
     # We need to extract only the ID part
+    print("Looping through the university url list")
     for i in range(len(university_url_list)):
-        print("Looping through the university url list")
+
 
         url = re.findall(r'\d+', university_url_list[i])
         university_url_list[i] = url
 
-        print("Extracting the university url is completed", "(total ", i, "/", len(university_url_list), ")")
+    print("Extracting the university url is completed", "(total ", i, "/", len(university_url_list), ")")
 
         # Fetch Data for All Universities, Create University class objects and Store them in university_list.
-        #print("Fetching the first 20 university for plotting purposes!")
 
-    for i in range(len(university_url_list)):
+    print("Fetching the first 50 university for plotting purposes!")
+    for i in range(50):
         university = University()
+
+        # Data For Scatter Plot
+        math_avg = ""
+        lowest_student_rank = ""
 
         #for i in range(len(university_url_list)):
         url_as_string = ''.join(university_url_list[i])
@@ -354,13 +354,15 @@ if __name__ == '__main__':
         except:
             print("Parse error (3)")
 
+
         try:
             td_table = avg_ygs_nets_page_parsed.findAll('td')
-            for i in range(len(td_table)):
-                if td_table[i].get_text() == "YGS Matematik (40 soruda)":
-                    math_avg = td_table[i+1].get_text()
+
+            for index in range(len(td_table)):
+                if td_table[index].get_text() == "TYT Matematik (40 soruda)":
+                    math_avg = td_table[index+1].get_text()
                     #print(math_avg, university.name, avg_ygs_nets_request_url)
-                    university.avg_math_2017 = math_avg
+                    university.avg_math_2018 = math_avg
 
         except:
             print("Fetching error (3)")
@@ -386,11 +388,25 @@ if __name__ == '__main__':
             lowest_student_rank = td_table[len(td_table)-2].get_text().strip()
             #print(lowest_student_rank)
             university.lowest_student_rank = lowest_student_rank
-            
+
+
         except:
             print("Fetching error (4)")
 
         print("Fetching Lowest Student Rank for id ", i, "is completed", "( total ", i, "/", len(university_url_list), ")")
+
+        # Store Data for Scatter Plot
+
+        try:
+            #print(university.avg_math_2018, university.lowest_student_rank)
+            math_avg_int = make_int(university.avg_math_2018)
+            lowest_student_rank_int = make_int(university.lowest_student_rank)
+            # check both for to ensure if they both are parsed successfully
+            if math_avg_int is not 0 and lowest_student_rank_int is not 0:
+                avg_mat_net_list.append(int(math_avg_int))
+                lowest_student_rank_list.append(float(lowest_student_rank))
+        except:
+            print("Scatter Plot Data Initialization Error")
 
         # Get Quotas
         quota_request_url = website_homepage + "2017/content/lisans-dynamic/1000_2.php?y=" + url_as_string
@@ -419,10 +435,7 @@ if __name__ == '__main__':
         # Match University Cities with Regions and Create Lists of Universities Based On Their Region
         add_to_region(university)
 
-
     print("Fetching completed.")
-
-
 
     # Create Boxplot
     print("Creating Boxplot...")
@@ -452,3 +465,13 @@ if __name__ == '__main__':
         print("Boxplotting failed")
     # Save the figure
     # fig.savefig('fig1.png', bbox_inches='tight')
+
+
+    # Scatter Plot
+    print("Creating ScatterPlot...")
+    colors = (0, 0, 0)
+    area = 1000
+    plt.scatter(avg_mat_net_list, lowest_student_rank_list)
+
+    plt.show()
+    print("Data is plotted as ScatterPlot, exiting")
