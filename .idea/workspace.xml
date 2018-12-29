@@ -11,7 +11,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/Project4$Unnamed.coverage" NAME="Unnamed Coverage Results" MODIFIED="1546092375692" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Project4$Unnamed.coverage" NAME="Unnamed Coverage Results" MODIFIED="1546098393329" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="FUSProjectUsageTrigger">
     <session id="-283557845">
@@ -27,23 +27,23 @@
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="png" value="3" />
-          <entry key="py" value="18" />
+          <entry key="py" value="19" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="Image" value="3" />
-          <entry key="Python" value="18" />
+          <entry key="Python" value="19" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="11369" />
+          <entry key="py" value="11810" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Python" value="11369" />
+          <entry key="Python" value="11810" />
         </counts>
       </usages-collector>
     </session>
@@ -56,15 +56,15 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-16">
-              <caret line="361" column="37" selection-start-line="361" selection-start-column="37" selection-end-line="361" selection-end-column="37" />
+            <state relative-caret-position="-178">
+              <caret line="484" lean-forward="true" selection-start-line="484" selection-end-line="484" />
               <folding>
-                <element signature="e#847#871#0" expanded="true" />
-                <marker date="1546092232266" expanded="true" signature="4440:4441" ph="..." />
-                <marker date="1546092232266" expanded="true" signature="4511:6425" ph="..." />
-                <marker date="1546092232266" expanded="true" signature="6453:6458" ph="..." />
-                <marker date="1546092232266" expanded="true" signature="7284:7394" ph="..." />
-                <marker date="1546092232266" expanded="true" signature="7467:9092" ph="..." />
+                <element signature="e#787#811#0" expanded="true" />
+                <marker date="1546098343646" expanded="true" signature="4538:4539" ph="..." />
+                <marker date="1546098343646" expanded="true" signature="4609:6523" ph="..." />
+                <marker date="1546098343646" expanded="true" signature="6551:6556" ph="..." />
+                <marker date="1546098343646" expanded="true" signature="7382:7660" ph="..." />
+                <marker date="1546098343646" expanded="true" signature="7733:9358" ph="..." />
               </folding>
             </state>
           </provider>
@@ -81,12 +81,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>convert_to_list</find>
-      <find>plotting pu</find>
-      <find>extend</find>
-      <find>all_univers</find>
-      <find>bolge_guneydogu_anadolu_list</find>
-      <find>initialize_all_universities</find>
       <find>region</find>
       <find>quotas_for_akdeniz</find>
       <find>universities_in_akdeniz</find>
@@ -110,7 +104,13 @@
       <find>extracting</find>
       <find>avg_mat_net_list</find>
       <find>lowest_student</find>
+      <find>plotting pur</find>
+      <find>svdvals</find>
+      <find>, &quot;</find>
+      <find>lowest_student_rank_list</find>
+      <find>make_int</find>
       <find>avg_math</find>
+      <find>make_float</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -218,14 +218,13 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.5837563" visible="true" weight="0.06580938" />
-      <window_info id="Structure" order="1" sideWeight="0.41624364" side_tool="true" visible="true" weight="0.06580938" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.5829268" visible="true" weight="0.06580938" />
+      <window_info id="Structure" order="1" sideWeight="0.41707316" side_tool="true" visible="true" weight="0.06580938" />
       <window_info id="Favorites" order="2" sideWeight="0.5016779" side_tool="true" weight="0.120272316" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32885906" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49924356" visible="true" weight="0.33892617" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49924356" visible="true" weight="0.31208053" />
       <window_info anchor="bottom" id="Cvs" order="3" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="4" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="5" />
@@ -238,9 +237,9 @@
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="SciView" order="3" weight="0.27760968" />
+      <window_info anchor="right" id="SciView" order="3" visible="true" weight="0.38124055" />
       <window_info anchor="right" id="Database" order="4" />
-      <window_info active="true" anchor="right" id="Debug" order="5" visible="true" weight="0.3161876" />
+      <window_info anchor="right" id="Debug" order="5" weight="0.3161876" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -254,13 +253,8 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/app.py</url>
-          <line>479</line>
-          <option name="timeStamp" value="38" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/app.py</url>
-          <line>370</line>
-          <option name="timeStamp" value="42" />
+          <line>412</line>
+          <option name="timeStamp" value="43" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
@@ -352,17 +346,24 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/venv/Lib/site-packages/statsmodels/tools/tools.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="130">
+          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-16">
-          <caret line="361" column="37" selection-start-line="361" selection-start-column="37" selection-end-line="361" selection-end-column="37" />
+        <state relative-caret-position="-178">
+          <caret line="484" lean-forward="true" selection-start-line="484" selection-end-line="484" />
           <folding>
-            <element signature="e#847#871#0" expanded="true" />
-            <marker date="1546092232266" expanded="true" signature="4440:4441" ph="..." />
-            <marker date="1546092232266" expanded="true" signature="4511:6425" ph="..." />
-            <marker date="1546092232266" expanded="true" signature="6453:6458" ph="..." />
-            <marker date="1546092232266" expanded="true" signature="7284:7394" ph="..." />
-            <marker date="1546092232266" expanded="true" signature="7467:9092" ph="..." />
+            <element signature="e#787#811#0" expanded="true" />
+            <marker date="1546098343646" expanded="true" signature="4538:4539" ph="..." />
+            <marker date="1546098343646" expanded="true" signature="4609:6523" ph="..." />
+            <marker date="1546098343646" expanded="true" signature="6551:6556" ph="..." />
+            <marker date="1546098343646" expanded="true" signature="7382:7660" ph="..." />
+            <marker date="1546098343646" expanded="true" signature="7733:9358" ph="..." />
           </folding>
         </state>
       </provider>

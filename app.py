@@ -29,6 +29,10 @@ from bs4 import BeautifulSoup
 
 import re
 import matplotlib.pyplot as plt
+import numpy as np
+from numpy.polynomial.polynomial import polyfit
+import statsmodels.api as sm
+
 
 # Website to be scraped
 website_homepage = "https://yokatlas.yok.gov.tr/"
@@ -79,7 +83,7 @@ class University:
         self.program_code = ""  # There are multiple pages with same name, they differ in the program code
         self.url = ""
         self.city = ""
-        self.quota = 0  # "kontenjan"
+        self.quota = ""  # "kontenjan"
         self.region = ""  # region in Turkey
 
         # Note that, Lowest Student Rank is not available for almost all the universities for 2017.
@@ -197,6 +201,12 @@ def make_int(s):
     decimals_as_string = ''.join(list_of_decimals_in_s)
     return int(decimals_as_string) if decimals_as_string else 0  # return as integer, and return 0 if blank
 
+def make_float(s):
+    s = s.strip()
+    float_s = float(s.replace(',', '.'))
+    return float(float_s) if float_s else 0  # return as integer, and return 0 if blank
+
+
 def initialize_quotas():
     print("Initializing quotas for the regions")
 
@@ -283,12 +293,12 @@ if __name__ == '__main__':
         url = re.findall(r'\d+', university_url_list[i])
         university_url_list[i] = url
 
-    print("Extracting the university url is completed", "(total ", i, "/", len(university_url_list), ")")
+    print("Extracting the university url is completed", "(total ", i, "/", len(university_url_list)-1, ")")
 
         # Fetch Data for All Universities, Create University class objects and Store them in university_list.
 
-    print("Fetching the first 50 university for plotting purposes!")
-    for i in range(50):
+    #print("Fetching the first 50 university for plotting purposes!")
+    for i in range(len(university_url_list)):
         university = University()
 
         # Data For Scatter Plot
@@ -323,7 +333,7 @@ if __name__ == '__main__':
         except:
             print("Fetching error (2)")
 
-        print("Fetching Name & City for id ", i, " is completed", "( total ", i, "/", len(university_url_list), ")")
+        print("Fetching Name & City for id ", i, " is completed", "( total ", i, "/", len(university_url_list)-1, ")")
 
         # Get Program Name
         try:
@@ -339,7 +349,7 @@ if __name__ == '__main__':
         except:
             print("Fetching error (3)")
 
-        print("Fetching Program Code for id ", i, "is completed", "( total ", i, "/", len(university_url_list), ")")
+        print("Fetching Program Code for id ", i, "is completed", "( total ", i, "/", len(university_url_list)-1, ")")
 
         # Get Average Net Math Questions in YGS 2017
         # Note that, Lowest Student Rank is not available for almost all the universities for 2017.
@@ -367,7 +377,7 @@ if __name__ == '__main__':
         except:
             print("Fetching error (3)")
 
-        print("Fetching Avg Math Nets for id ", i, "is completed", "( total ", i, "/", len(university_url_list), ")")
+        print("Fetching Avg Math Nets for id ", i, "is completed", "( total ", i, "/", len(university_url_list)-1, ")")
 
         # Get Lowest Student Rank for TYT in 2018
         # Note that, Lowest Student Rank is not available for almost all the universities for 2017.
@@ -393,18 +403,19 @@ if __name__ == '__main__':
         except:
             print("Fetching error (4)")
 
-        print("Fetching Lowest Student Rank for id ", i, "is completed", "( total ", i, "/", len(university_url_list), ")")
+        print("Fetching Lowest Student Rank for id ", i, "is completed", "( total ", i, "/", len(university_url_list)-1, ")")
 
         # Store Data for Scatter Plot
 
         try:
             #print(university.avg_math_2018, university.lowest_student_rank)
-            math_avg_int = make_int(university.avg_math_2018)
+            math_avg_int = make_float(university.avg_math_2018)
             lowest_student_rank_int = make_int(university.lowest_student_rank)
             # check both for to ensure if they both are parsed successfully
             if math_avg_int is not 0 and lowest_student_rank_int is not 0:
                 avg_mat_net_list.append(int(math_avg_int))
                 lowest_student_rank_list.append(float(lowest_student_rank))
+
         except:
             print("Scatter Plot Data Initialization Error")
 
@@ -427,7 +438,7 @@ if __name__ == '__main__':
         except:
             print("Fetching error (5)")
 
-        print("Fetching Quota for id ", i, " is completed", "( total ", i, "/", len(university_url_list), ")")
+        print("Fetching Quota for id ", i, " is completed", "( total ", i, "/", len(university_url_list)-1, ")")
         print("###########################################")
 
         university_list.append(university)
@@ -457,21 +468,38 @@ if __name__ == '__main__':
     try:
         plt.boxplot(box_plot_data,
                     patch_artist=True,
-                    labels=['Akdeniz', 'Dogu Anadolu', 'Ege', 'Guneydogu Anadolu',
-                            'Ic Anadolu', 'Marmara', 'Karadeniz'])
+                    labels=['Akdeniz', 'Dogu A.', 'Ege', 'Guneydogu A.',
+                            'Ic A.', 'Marmara', 'Karadeniz'])
+        plt.xlabel('Regions')
+        plt.ylabel('Quotas')
         plt.show()
         print("Data is plotted as boxplot, exiting")
     except:
-        print("Boxplotting failed")
-    # Save the figure
-    # fig.savefig('fig1.png', bbox_inches='tight')
+        print("Boxplot failed")
 
 
     # Scatter Plot
     print("Creating ScatterPlot...")
-    colors = (0, 0, 0)
-    area = 1000
+
+    results = sm.OLS(lowest_student_rank_list, sm.add_constant(avg_mat_net_list)).fit()
+
+    for i in range(len(avg_mat_net_list)):
+        print(avg_mat_net_list[i])
+
     plt.scatter(avg_mat_net_list, lowest_student_rank_list)
 
+    #plt.plot(avg_mat_net_list, b + m * avg_mat_net_list, '-')
+
+    # X_plot = np.linspace(0, 1, 100)
+    # plt.plot(X_plot, X_plot * results.params[0] + results.params[1])
+
+    plt.xlabel('Average Math Net')
+    plt.ylabel('Lowest Student Rank')
     plt.show()
+
+    r_squared = results.rsquared
+    print("R squared = ", r_squared)
+
     print("Data is plotted as ScatterPlot, exiting")
+
+
