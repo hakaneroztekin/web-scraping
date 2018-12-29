@@ -479,27 +479,31 @@ if __name__ == '__main__':
 
 
     # Scatter Plot
-    print("Creating ScatterPlot...")
+    try:
+        print("Creating ScatterPlot...")
 
-    results = sm.OLS(lowest_student_rank_list, sm.add_constant(avg_mat_net_list)).fit()
+        results = sm.OLS(lowest_student_rank_list, sm.add_constant(avg_mat_net_list)).fit()
 
-    for i in range(len(avg_mat_net_list)):
-        print(avg_mat_net_list[i])
+        for i in range(len(avg_mat_net_list)):
+            print(avg_mat_net_list[i])
 
-    plt.scatter(avg_mat_net_list, lowest_student_rank_list)
+        plt.scatter(avg_mat_net_list, lowest_student_rank_list)
 
-    #plt.plot(avg_mat_net_list, b + m * avg_mat_net_list, '-')
+        #plt.plot(avg_mat_net_list, b + m * avg_mat_net_list, '-')
 
-    # X_plot = np.linspace(0, 1, 100)
-    # plt.plot(X_plot, X_plot * results.params[0] + results.params[1])
+        # X_plot = np.linspace(0, 1, 100)
+        # plt.plot(X_plot, X_plot * results.params[0] + results.params[1])
 
-    plt.xlabel('Average Math Net')
-    plt.ylabel('Lowest Student Rank')
-    plt.show()
+        plt.xlabel('Average Math Net')
+        plt.ylabel('Lowest Student Rank')
+        plt.show()
 
-    r_squared = results.rsquared
-    print("R squared = ", r_squared)
+        r_squared = results.rsquared
+        print("R squared = ", r_squared)
 
-    print("Data is plotted as ScatterPlot, exiting")
+        print("Data is plotted as ScatterPlot, exiting")
+
+    except:
+        print("Scatterplot failed")
 
 
