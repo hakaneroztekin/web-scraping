@@ -48,8 +48,9 @@ quota_found = 0
 
 
 class University:
-
     def __init__(self):
+        self.name = ""
+        self.url = ""
         self.city = ""
         self.quota = 0  # "kontenjan"
         self.region = ""  # region in Turkey
@@ -125,7 +126,7 @@ if __name__ == '__main__':
     # Fetch Data for All Universities, Create University class objects and Store them in university_list.
     for i in range(len(university_url_list)):
         url_as_string = ''.join(university_url_list[i])
-
+        university.url = url_as_string
         # Let's get University's City information in their homepage
         # Example URL: https://yokatlas.yok.gov.tr/2017/lisans.php?y=106510077
         university_profile_url = website_homepage + "2017/lisans.php?y=" + url_as_string
@@ -164,3 +165,4 @@ if __name__ == '__main__':
 
         university_list.append(university)
         #print(university.city, " ", university.quota)
+
