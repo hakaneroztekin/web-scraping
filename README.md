@@ -23,4 +23,4 @@ request (for data retrieval)
 
 BeautifulSoup4 (for data parsing)
 
-matplotlip, numpy and statsmodels.api ( for data visualization)
+matplotlip, numpy and statsmodels (for data visualization)
