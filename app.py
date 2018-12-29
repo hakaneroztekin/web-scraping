@@ -91,4 +91,10 @@ if __name__ == '__main__':
 
     # remove the (unnecessary) last element
     university_url_list.remove('netler-tablo.php?b=10024')
-  
+
+    print(university_url_list)
+    # Each item is in the form: lisans.php?y=<id> For example lisans.php?y=106510077
+    # We need to extract only the ID part
+    for i in range(len(university_url_list)):
+        url = re.findall(r'\d+', university_url_list[i])
+        university_url_list[i] = url
