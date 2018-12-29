@@ -50,7 +50,7 @@ university_url_list = []
 
 university_list = []  # to keep list of universities
 
-# Regions
+# Regions and Universities In That Regions
 bolge_akdeniz_list = []
 bolge_dogu_anadolu_list = []
 bolge_ege_list = []
@@ -58,6 +58,17 @@ bolge_guneydogu_anadolu_list = []
 bolge_ic_anadolu_list = []
 bolge_marmara_list = []
 bolge_karadeniz_list = []
+all_regions = []
+
+# Universities In The Regions
+universities_in_akdeniz = []
+universities_in_dogu_anadolu = []
+universities_in_ege = []
+universities_in_guneydogu_anadolu = []
+universities_in_ic_anadolu = []
+universities_in_marmara = []
+universities_in_karadeniz = []
+all_universities = []
 
 class University:
     def __init__(self):
@@ -104,36 +115,74 @@ def log_error(e):
     """
     print(e)
 
+def initialize_all_universities():
+    all_universities.append(universities_in_akdeniz)
+    all_universities.append(universities_in_dogu_anadolu)
+    all_universities.append(universities_in_ege)
+    all_universities.append(universities_in_guneydogu_anadolu)
+    all_universities.append(universities_in_ic_anadolu)
+    all_universities.append(universities_in_marmara)
+    all_universities.append(universities_in_karadeniz)
 
 
 def initialize_regions():
     bolge_akdeniz = "Adana, Antalya, Burdur, Hatay, Isparta,  Kahramanmaraş, Mersin, Osmaniye"
     bolge_akdeniz_list = convert_to_list(bolge_akdeniz)
+    all_regions.append(bolge_akdeniz_list)
 
     bolge_dogu_anadolu = "Ağrı, Ardahan, Bingöl, Bitlis, Elazığ, Erzincan, Erzurum, Hakkari, Iğdır, Kars, Malatya, Muş, Tunceli, Van"
     bolge_dogu_anadolu_list = convert_to_list(bolge_dogu_anadolu)
+    all_regions.append(bolge_dogu_anadolu_list)
 
     bolge_ege = "Afyonkarahisar, Aydın, Denizli, İzmir, Kütahya, Manisa, Muğla, Uşak"
     bolge_ege_list = convert_to_list(bolge_ege)
+    all_regions.append(bolge_ege_list)
 
     bolge_guneydogu_anadolu= "Adıyaman, Batman, Diyarbakır, Gaziantep, Mardin, Siirt, Şanlıurfa, Şırnak, Kilis"
     bolge_guneydogu_anadolu_list = convert_to_list(bolge_guneydogu_anadolu)
+    all_regions.append(bolge_guneydogu_anadolu_list)
 
     bolge_ic_anadolu = "Aksaray, Ankara, Çankırı, Eskişehir, Karaman, Kayseri, Kırıkkale, Kırşehir, Konya, Nevşehir, Niğde, Sivas, Yozgat"
     bolge_ic_anadolu_list = convert_to_list(bolge_ic_anadolu)
+    all_regions.append(bolge_ic_anadolu_list)
 
     bolge_marmara = "Balıkesir, Bilecik, Bursa, Çanakkale, Edirne, İstanbul, Kırklareli, Kocaeli, Sakarya, Tekirdağ, Yalova"
     bolge_marmara_list = convert_to_list(bolge_marmara)
+    all_regions.append(bolge_marmara_list)
 
     bolge_karadeniz = "Amasya, Artvin, Bartın, Bayburt, Bolu, Çorum, Düzce, Giresun, Gümüşhane, Karabük, Kastamonu, Ordu, Rize, Samsun, Sinop, Tokat, Trabzon, Zonguldak"
     bolge_karadeniz_list = convert_to_list(bolge_karadeniz)
+    all_regions.append(bolge_karadeniz_list)
+
+
 
 def convert_to_list(string):
     result = [x.strip() for x in string.split(',')]
     return result
 
 
+def add_to_region(university):
+    # iterate through all the cities in all the regions
+    for region in all_regions:
+        for i in range(len(region)):
+            #print(region[i])
+            if re.search(university.city, region[i], re.IGNORECASE):  # ignore case sensitivity and search for the match
+                # indexes in all_regions and all_universities are the same for same regions
+                # so we can directly use the same index to add the university to that region
+                all_universities[i].append(university)
+                #print("added")
+
+
+
 if __name__ == '__main__':
+
+    # To create a Boxplot, we need to classify universities based on their regions.
+    # Before that, let's fill the regions list
+    initialize_regions()
+
+    # Just append university lists based on regions to all_universities list
+    initialize_all_universities()
+
     # 1- Scrap the data from the source.
     raw_html = simple_get(source)
     #print(len(raw_html))
@@ -210,13 +259,13 @@ if __name__ == '__main__':
             try:
                 # <div class="panel" style="margin:0px;background-color:#646464;">
                 for h2 in profile_page_parsed.findAll('h2', {"class": "panel-title pull-left"}):
-                        # example: ANKARA ÜNİVERSİTESİ - Bilgisayar Mühendisliği (101110581) | YÖK Lisans Atlası
-                        text = h2.get_text()
-                        if 'Program' in text:
-                            program_code = re.findall(r'\d+', text)
-                            program_code_as_string = ''.join(program_code)
-                            university.program_code = program_code_as_string
-                            # print(university.program_code)
+                    # example: ANKARA ÜNİVERSİTESİ - Bilgisayar Mühendisliği (101110581) | YÖK Lisans Atlası
+                    text = h2.get_text()
+                    if 'Program' in text:
+                        program_code = re.findall(r'\d+', text)
+                        program_code_as_string = ''.join(program_code)
+                        university.program_code = program_code_as_string
+                        # print(university.program_code)
             except:
                 print("Fetching error (3)")
 
@@ -245,14 +294,16 @@ if __name__ == '__main__':
             print("Fetching Quota for id ", i, " is completed")
 
             university_list.append(university)
+
+            # Match University Cities with Regions and Create Lists of Universities Based On Their Region
+            add_to_region(university)
+
             #print(university.city, " ", university.quota)
 
         print("Fetching completed.")
 
-        # To create a Boxplot, we need to classify universities based on their regions.
-        initialize_regions()
 
-        # # Create Boxplot
+        # Create Boxplot
         # print("Creating Boxplot...")
         #
         # # box_plot_data = []
