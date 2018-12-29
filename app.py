@@ -108,7 +108,7 @@ if __name__ == '__main__':
     try:
         html = BeautifulSoup(raw_html, 'html.parser')
     except:
-        print("Parse error")
+        print("Parse error (1)")
 
     # Here we can list URL's of each university's own page
     # When we will be able to fetch one university's quotas, this will be used to fetch all universities' quotas.
@@ -134,7 +134,7 @@ if __name__ == '__main__':
         url = re.findall(r'\d+', university_url_list[i])
         university_url_list[i] = url
 
-        print("Extracting url's from university url list is completed")
+        print("Extracting the university url is completed", "(total ", i, "/", len(university_url_list), ")")
 
         # Fetch Data for All Universities, Create University class objects and Store them in university_list.
         for i in range(len(university_url_list)):
@@ -161,7 +161,7 @@ if __name__ == '__main__':
             except:
                 print("Fetching error (2)")
 
-            print("Name & City Fetch is completed")
+            print("Fetching Name & City for id ", i, " is completed", "(total ", i, "/", len(university_url_list), ")")
 
 
             # Get Program Name
@@ -175,13 +175,10 @@ if __name__ == '__main__':
                             program_code_as_string = ''.join(program_code)
                             university.program_code = program_code_as_string
                             # print(university.program_code)
-
-                # name = re.search(r'(.*?)\(', name_and_city).group(1)  #
-                # university.city = city
-                # print(city)
-
             except:
                 print("Fetching error (3)")
+
+            print("Fetching Program Code for id ", i, "is completed", "(total ", i, "/", len(university_url_list), ")")
 
 
             # From this point on, let's try to fetch one university's quota's.
@@ -189,8 +186,11 @@ if __name__ == '__main__':
             #print(quota_request_url)
 
             quota_page_html = simple_get(quota_request_url)
-            quota_page_parsed = BeautifulSoup(quota_page_html, 'html.parser')
-            #print(BeautifulSoup.prettify(quota_page_parsed))
+            try:
+                quota_page_parsed = BeautifulSoup(quota_page_html, 'html.parser')
+                #print(BeautifulSoup.prettify(quota_page_parsed))
+            except:
+                print("Parse error (2)")
 
             try:
                 for td in quota_page_parsed.findAll('td', {"class": "tdr text-center"}):
@@ -200,19 +200,8 @@ if __name__ == '__main__':
             except:
                 print("Fetching error (4)")
 
+            print("Fetching Quota for id ", i, " is completed")
+
             university_list.append(university)
             #print(university.city, " ", university.quota)
 
-        # Create Boxplot
-
-        # Create a figure instance
-        fig = plt.figure(1, figsize=(200, 100))
-
-        # Create an axes instance
-        ax = fig.add_subplot(111)
-
-        # Create the boxplot
-        bp = ax.boxplot(university_list)
-
-        # Save the figure
-        fig.savefig('fig1.png', bbox_inches='tight')
