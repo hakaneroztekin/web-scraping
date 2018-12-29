@@ -284,9 +284,9 @@ if __name__ == '__main__':
         print("Extracting the university url is completed", "(total ", i, "/", len(university_url_list), ")")
 
         # Fetch Data for All Universities, Create University class objects and Store them in university_list.
-        print("Fetching the first 100 university for plotting purposes!")
+        #print("Fetching the first 20 university for plotting purposes!")
 
-    for i in range(100):
+    for i in range(len(university_url_list)):
         university = University()
 
         #for i in range(len(university_url_list)):
@@ -384,9 +384,13 @@ if __name__ == '__main__':
                      quotas_for_marmara,
                      quotas_for_karadeniz]
 
+
     print("Boxplotting the data.")
     try:
-        plt.boxplot(box_plot_data)
+        plt.boxplot(box_plot_data,
+                    patch_artist=True,
+                    labels=['Akdeniz', 'Dogu Anadolu', 'Ege', 'Guneydogu Anadolu',
+                            'Ic Anadolu', 'Marmara', 'Karadeniz'])
         plt.show()
         print("Data is plotted as boxplot, exiting")
     except:
